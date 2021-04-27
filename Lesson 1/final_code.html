@@ -1,0 +1,63 @@
+<html> 
+<head>
+  <style>
+   *{padding: 0; margin:0;}
+   canvas{ background: #eee; display: block; margin: 0 auto;}
+   </style>
+</head>
+<body>
+<canvas id= "myCanvas" width="256" height="240"></canvas>
+<script type="text/javascript">
+let canvas = document.getElementById("myCanvas");
+let ctx = canvas.getContext("2d");
+//document.addEventListener("keydown",keyDownHandler, false);
+//document.addEventListener("keyup",keyUpHandler,false);
+document.body.style.zoom = "288%";
+let fps = 60;
+let worldTiles = new Image();
+worldTiles.src = "tiles-overworld.png";
+
+let map7_7 = [
+[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
+[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
+[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
+[ 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
+[ 61, 61, 61, 61, 61, 61, 61,  2,  2, 61, 61, 61, 61, 61, 61, 61],
+[ 61, 61, 61, 61, 28, 61, 62,  2,  2, 61, 61, 61, 61, 61, 61, 61],
+[ 61, 61, 61, 62,  2,  2,  2,  2,  2, 61, 61, 61, 61, 61, 61, 61],
+[ 61, 61, 62,  2,  2,  2,  2,  2,  2, 61, 61, 61, 61, 61, 61, 61],
+[ 61, 62,  2,  2,  2,  2,  2,  2,  2, 60, 61, 61, 61, 61, 61, 61],
+[  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2],
+[ 43, 44,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 43, 43],
+[ 61, 61,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 61, 61],
+[ 61, 61,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 61, 61],
+[ 61, 61, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 61, 61],
+[ 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61]];
+
+function drawMap(level)
+{
+	for(let i = 0; i < level.length; i++)
+	{
+		for(let j = 0; j < level[i].length; j++)
+		{
+			ctx.drawImage(worldTiles, ((level[i][j]%18) * 17) + 1,
+			(Math.floor(level[i][j]/18) * 17) + 1, 
+			16, 16, j *16, i *16, 16, 16);
+		}
+	}
+}
+
+function draw () {
+   setTimeout(function() {
+   requestAnimationFrame(draw);
+   ctx.fillStyle = "rgb(20,20,20)";
+   ctx.fillRect(0,0,256,240);
+   ///all code goes here
+   drawMap(map7_7);
+   },1000/fps);
+}
+draw();
+
+</script>
+</body>
+</html>
